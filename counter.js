@@ -55,6 +55,7 @@ function onTimesUp() {
 }
 
 function startTimer() {
+  localStorage.setItem("videoOff","false");
   timerInterval = setInterval(() => {
     timePassed = timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
@@ -65,6 +66,10 @@ function startTimer() {
     setRemainingPathColor(timeLeft);
 
     if (timeLeft === 0) {
+      console.log("Time Zero");
+      video.remove();
+      localStorage.setItem("videoOff","true")
+      poseNet.removeListener('pose', gotPoses);
       onTimesUp();
     }
   }, 1000);

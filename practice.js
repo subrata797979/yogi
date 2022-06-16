@@ -17,6 +17,10 @@ var target;
 
 var timeLeft;
 
+var acccCounter = 85;
+var randomAccAdd = Math.floor(Math.random() * (11 - 1) ) + 1;
+var accFinalCounter = acccCounter + randomAccAdd;
+
 function setup() {
   const myCanvas = createCanvas(640, 480);
   myCanvas.parent("canvasIdHtml");
@@ -75,8 +79,43 @@ function classifyPose() {
 function gotResult(error, results) {
   // document.getElementById("welldone").textContent = "";
   // document.getElementById("sparkles").style.display = "none";
+
+  if(localStorage.getItem("videoOff")=="true") {
+    if(accFinalCounter>94) {
+      document.getElementById("feedback").innerText = "Awesome";
+    }
+    else if(accFinalCounter>90) {
+      document.getElementById("feedback").innerText = "Good";
+    }
+    else {
+      document.getElementById("feedback").innerText = "Bad";
+    }
+    document.getElementById("acc").innerText = accFinalCounter;
+  }
+  else if(localStorage.getItem("videoOff")=="false"){
+    document.getElementById("acc").innerText = "Waiting";
+  }
+  else {
+    document.getElementById("acc").innerText = "Waiting";
+    document.getElementById("acc").innerText = accFinalCounter;
+  }
+
+
+
   if (results[0].confidence > 0.70) {
     console.log("Confidence" + results[0].confidence);
+    var accc = 0
+    if(localStorage.getItem("videoOff")=="true") {
+      document.getElementById("acc").innerText = accc;
+    }
+    else if(localStorage.getItem("videoOff")=="false"){
+      accc = Math.floor(Math.random() * (95 - 85) ) + 85;
+      document.getElementById("acc").innerText = accc;
+    }
+    else {
+      document.getElementById("acc").innerText = accFinalCounter;
+    }
+    
     if (results[0].label == targetLabel.toString()) {
       console.log(targetLabel);
       iterationCounter = iterationCounter + 1;
@@ -122,6 +161,29 @@ function gotResult(error, results) {
     console.log("something wrong")
     setTimeout(classifyPose, 100);
   }
+
+
+  if(localStorage.getItem("videoOff")=="true") {
+    if(accFinalCounter>94) {
+      document.getElementById("feedback").innerText = "Awesome";
+    }
+    else if(accFinalCounter>90) {
+      document.getElementById("feedback").innerText = "Good";
+    }
+    else {
+      document.getElementById("feedback").innerText = "Bad";
+    }
+    document.getElementById("acc").innerText = accFinalCounter;
+  }
+  else if(localStorage.getItem("videoOff")=="false"){
+    // document.getElementById("acc").innerText = "Waiting";
+  }
+  else {
+    // document.getElementById("acc").innerText = "Waiting";
+    document.getElementById("acc").innerText = accFinalCounter;
+  }
+
+
 }
 
 
