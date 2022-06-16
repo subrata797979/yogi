@@ -69,7 +69,7 @@ function startTimer() {
       console.log("Time Zero");
       video.remove();
       localStorage.setItem("videoOff","true")
-      poseNet.removeListener('pose', gotPoses);
+      // poseNet.removeListener('pose', gotPoses);
       onTimesUp();
     }
   }, 1000);
